@@ -1,5 +1,4 @@
-name: Node.js CI
-
+name: Node.js CI lcov
 on:
   push:
     branches: [main, master, dev/*]
@@ -23,21 +22,19 @@ jobs:
       - run: npm i
       - run: npm run test:prod
 
-      - name: Code Coverage Report
-        uses: irongut/CodeCoverageSummary@v1.3.0
+      # - name: Code Coverage Report
+      #   uses: irongut/CodeCoverageSummary@v1.3.0
+      #   with:
+      #     filename: coverage/cobertura-coverage.xml
+      #     badge: true
+      #     fail_below_min: true
+      #     format: markdown
+      #     hide_branch_rate: false
+      #     hide_complexity: true
+      #     indicators: true
+      #     output: both
+      #     thresholds: '20'
+      - name: Add Coverage PR Comment Imran
+        uses: romeovs/lcov-reporter-action@v0.2.16
         with:
-          filename: coverage/cobertura-coverage.xml
-          badge: true
-          fail_below_min: true
-          format: markdown
-          hide_branch_rate: false
-          hide_complexity: true
-          indicators: true
-          output: both
-          thresholds: '20'
-      - name: Add Coverage PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        if: github.event_name == 'push'
-        with:
-          recreate: true
-          path: code-coverage-results.md
+        lcov-file: ./coverage/lcov.info
