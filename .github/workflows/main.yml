@@ -27,3 +27,9 @@ jobs:
         with:
           lcov-file: ./coverage/lcov.info
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Test and generate coverage
+        uses: 5monkeys/cobertura-action@master
+        with:
+          path: .coverage/cobertura-coverage.xml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          minimum_coverage: 75
